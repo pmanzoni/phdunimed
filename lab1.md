@@ -1,3 +1,4 @@
+[![hackmd-github-sync-badge](https://hackmd.io/oNBMMGCPRmyrjxM6xmXMmw/badge)](https://hackmd.io/oNBMMGCPRmyrjxM6xmXMmw)
 > To clean Docker: docker system prune -a
 
 
