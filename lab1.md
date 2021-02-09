@@ -1,8 +1,11 @@
 [![hackmd-github-sync-badge](https://hackmd.io/oNBMMGCPRmyrjxM6xmXMmw/badge)](https://hackmd.io/oNBMMGCPRmyrjxM6xmXMmw)
-> To clean Docker: docker system prune -a
 
 
 # PART 1: the basics
+> based on     
+> * https://training.play-with-docker.com/dev-stage1/
+> * https://training.play-with-docker.com/ops-s1-hello/
+
 
 ## Installing Docker
 
@@ -850,6 +853,13 @@ $ docker network rm alpine-net
 ```
 
 With this part we worked with the basic of using containers and how to connect them using defined networks.
+
+
+:::info
+To clean Docker: docker system prune -a
+:::
+
+
 
 ---
 
