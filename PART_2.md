@@ -1,5 +1,8 @@
 # PART 2: Building an image: basic steps
 
+[![hackmd-github-sync-badge](https://hackmd.io/F192w34sRsW-1JfSXfOKUQ/badge)](https://hackmd.io/F192w34sRsW-1JfSXfOKUQ)
+
+
 > https://training.play-with-docker.com/ops-s1-images/
 
 First thing you may want to do is figure out how to create our own images. While there are over 700K images on Docker Store it is almost certain that none of them are exactly what you run in your data center today. Even something as common as a Windows OS image would get its own tweaks before you actually run it in production. In the first lab, we created a file called “hello.txt” in one of our container instances. If that instance of our Alpine container was something we wanted to re-use in future containers and share with others, we would need to create a custom image that everyone could use.
