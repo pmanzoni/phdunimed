@@ -1,4 +1,7 @@
 # PART 8: Simulating a Thread network using OpenThread
+
+[![hackmd-github-sync-badge](https://hackmd.io/sV7hqy70SwyQ1rMHpqMoBQ/badge)](https://hackmd.io/sV7hqy70SwyQ1rMHpqMoBQ)
+
 > :copyright:  https://codelabs.developers.google.com/codelabs/openthread-simulation/#0
 
 
