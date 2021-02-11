@@ -38,6 +38,7 @@ client.loop_start()
 while True:
 
     msg_to_be_sent = random.randint(0, 100)
+    print("publishing: ", msg_to_be_sent)
     client.publish(THE_TOPIC, 
                    payload=msg_to_be_sent, 
                    qos=0, 
