@@ -8,12 +8,13 @@ Vaiours cases studies will be presented, the main one being OpenThread. OpenThre
 The course is organized as a succession of theoretical and experimental (hands-on) parts.
 
 ## Index
-* PART 0: slides Docker
 * PART 1: the basics
 * PART 2: Building an image: basic steps
 * PART 3: Networking with standalone containers
-* PART 4:  Building an image: an example with Flask
-* PART 5: slides LoRaWAN
-* PART 6: processing and visualizing data with InfluxDB & Grafana
-* PART 7: Two more case studies
-* PART 8: Simulating a Thread network using OpenThread
+* PART 4: Building an image: an example with Flask
+* PART 5: Processing and visualizing data with InfluxDB & Grafana
+  - LoRaWAN basics
+* PART 6: Containerized MQTT
+  - MQTT basics
+* PART 7: Simulating a Thread network using OpenThread
+  - OpenThread basics
