@@ -1,4 +1,4 @@
-# PART 6: processing and visualizing data with InfluxDB & Grafana
+# PART 5: processing and visualizing data with InfluxDB & Grafana
 
 [![hackmd-github-sync-badge](https://hackmd.io/y093octqRKm9AqpD7jm8CA/badge)](https://hackmd.io/y093octqRKm9AqpD7jm8CA)
 
