@@ -5,19 +5,19 @@
 
 > https://training.play-with-docker.com/ops-s1-images/
 
-First thing you may want to do is figure out how to create our own images. While there are over 700K images on Docker Store it is almost certain that none of them are exactly what you run in your data center today. Even something as common as a Windows OS image would get its own tweaks before you actually run it in production. In the first lab, we created a file called “hello.txt” in one of our container instances. If that instance of our Alpine container was something we wanted to re-use in future containers and share with others, we would need to create a custom image that everyone could use.
+First thing you may want to do is figure out how to create our own images. While there are over 700K images on Docker Store it is almost certain that none of them are exactly what you run in your data center today. Even something as common as a Windows OS image would get its own tweaks before you actually run it in production. 
 
 We will start with the simplest form of image creation, in which we simply commit one of our container instances as an image. Then we will explore a much more powerful and useful method for creating images: the Dockerfile.
 
 We will then see how to get the details of an image through the inspection and explore the filesystem to have a better understanding of what happens under the hood.
 
-## Image creation from a container
+## Image creation from a container
 Let’s start by running an interactive shell in a ubuntu container:
 
 ```
-docker container run -ti ubuntu bash
+$ docker container run -ti ubuntu bash
 ```
-As you know from earlier labs, you just grabbed the image called “ubuntu” from Docker Store and are now running the bash shell inside that container.1
+As you know from before, you just grabbed the image called “ubuntu” from Docker Store and are now running the bash shell inside that container.
 
 To customize things a little bit we will install a package called [figlet](http://www.figlet.org/) in this container. Your container should still be running so type the following commands at your ubuntu container command line:
 
@@ -36,19 +36,25 @@ Now let us pretend this new figlet application is quite useful and you want to s
 To start, we need to get the ID of this container using the ls command (do not forget the -a option as the non running container are not returned by the ls command).
 
 ```
-docker container ls -a
+$ docker container ls -a
 ```
-Before we create our own image, we might want to inspect all the changes we made. Try typing the command `docker container diff <container ID>` for the container you just created. You should see a list of all the files that were added to or changed in the container when you installed figlet. Docker keeps track of all of this information for us. This is part of the layer concept we will explore in a few minutes.
+Before we create our own image, we might want to inspect all the changes we made. Try typing the command 
+
+```
+$ docker container diff <container ID>
+```
+
+for the container you just created. You should see a list of all the files that were added to or changed in the container when you installed figlet. Docker keeps track of all of this information for us. This is part of the layer concept we will explore in a few minutes.
 
 Now, to create an image we need to “commit” this container. Commit creates an image locally on the system running the Docker engine. Run the following command, using the container ID you retrieved, in order to commit the container and create an image out of it.
 
 ```
-docker container commit CONTAINER_ID
+$ docker container commit CONTAINER_ID
 ```
 That’s it - you have created your first image! Once it has been commited, we can see the newly created image in the list of available images.
 
 ```
-docker image ls
+$ docker image ls
 ```
 You should see something like this:
 
@@ -63,8 +69,8 @@ Note that the image we pulled down in the first step (ubuntu) is listed here alo
 Adding this information to an image is known as tagging an image. From the previous command, get the ID of the newly created image and tag it so it’s named ourfiglet:
 
 ```
-docker image tag <IMAGE_ID> ourfiglet
-docker image ls
+$ docker image tag <IMAGE_ID> ourfiglet
+$ docker image ls
 ```
 Now we have the more friendly name “ourfiglet” that we can use to identify our image.
 
@@ -82,7 +88,7 @@ Here is a graphical view of what we just completed:
 Now we will run a container based on the newly created ourfiglet image:
 
 ```
-docker container run ourfiglet figlet hello
+$ docker container run ourfiglet figlet hello
 ```
 As the figlet package is present in our ourfiglet image, the command returns the following output:
 
@@ -94,30 +100,32 @@ As the figlet package is present in our ourfiglet image, the command returns the
 |_| |_|\___|_|_|\___/
 
 ```
-This example shows that we can create a container, add all the libraries and binaries in it and then commit it in order to create an image. We can then use that image just as we would for images pulled down from the Docker Store. We still have a slight issue in that our image is only stored locally. To share the image we would want to push the image to a registry somewhere. This is beyond the scope of this lab (and you should not enter any personal login information in these labs) but you can get a free Docker ID, run these labs, and push to the Docker Community Hub from your own system using Docker for Windows or Docker for Mac if you want to try this out.
+This example shows that we can create a container, add all the libraries and binaries in it and then commit it in order to create an image. We can then use that image just as we would for images pulled down from the Docker Store. We still have a slight issue in that our image is only stored locally. To share the image we would want to push the image to a registry somewhere. We'll see how to do this later...
 
-As mentioned above, this approach of manually installing software in a container and then committing it to a custom image is just one way to create an image. It works fine and is quite common. However, there is a more powerful way to create images. In the following exercise we will see how images are created using a Dockerfile, which is a text file that contains all the instructions to build an image.
+This approach of manually installing software in a container and then committing it to a custom image is just one way to create an image. It works fine and is quite common. However, there is a more powerful way to create images. In the following exercise we will see how images are created using a Dockerfile, which is a text file that contains all the instructions to build an image.
 
 ## Image creation using a Dockerfile
 
 Instead of creating a static binary image, we can use a file called a Dockerfile to create an image. The final result is essentially the same, but with a Dockerfile we are supplying the instructions for building the image, rather than just the raw binary files. This is useful because it becomes much easier to manage changes, especially as your images get bigger and more complex.
 
-For example, if a new version of figlet is released we would either have to re-create our image from scratch, or run our image and upgrade the installed version of figlet. In contrast, a Dockerfile would include the apt-get commands we used to install figlet so that we - or anybody using the Dockerfile - could simply recompose the image using those instructions.
-
 Dockerfiles are powerful because they allow us to manage how an image is built, rather than just managing binaries. In practice, Dockerfiles can be managed the same way you might manage source code: they are simply text files so almost any version control system can be used to manage Dockerfiles over time.
 
 We will use a simple example in this section and build a “hello world” application in Node.js. Do not be concerned if you are not familiar with Node.js: Docker (and this exercise) does not require you to know all these details.
 
-We will start by creating a file in which we retrieve the hostname and display it. NOTE: You should be at the Docker host’s command line ($). If you see a command line that looks similar to root@abcd1234567:/# then you are probably still inside your ubuntu container from the previous exercise. Type exit to return to the host command line.
+We will start by creating a file in which we retrieve the hostname and display it. 
 
-Type the following content into a file named index.js. You can use vi, vim or several other Linux editors in this exercise. If you need assistance with the Linux editor commands to do this follow this footnote2.
+Type the following content into a file named `index.js`:
 
 ```
 var os = require("os");
 var hostname = os.hostname();
 console.log("hello from " + hostname);
 ```
-The file we just created is the javascript code for our server. As you can probably guess, Node.js will simply print out a “hello” message. We will Docker-ize this application by creating a Dockerfile. We will use alpine as the base OS image, add a Node.js runtime and then copy our source code in to the container. We will also specify the default command to be run upon container creation.
+The file we just created is the javascript code for our server. As you can probably guess, Node.js will simply print out a “hello” message. We will: 
+* Docker-ize this application by creating a Dockerfile; we will use alpine as the base OS image, 
+* add a Node.js runtime and then 
+* copy our source code in to the container. 
+* We will also specify the default command to be run upon container creation.
 
 Create a file named Dockerfile and copy the following content into it. Again, help creating this file with Linux editors is here 3.
 
@@ -131,7 +139,7 @@ CMD ["node","index.js"]
 Let’s build our first image out of this Dockerfile and name it hello:v0.1:
 
 ```
-docker image build -t hello:v0.1 .
+$ docker image build -t hello:v0.1 .
 ```
 This is what you just completed: 
 
@@ -141,7 +149,7 @@ This is what you just completed:
 We then start a container to check that our applications runs correctly:
 
 ```
-docker container run hello:v0.1
+$ docker container run hello:v0.1
 ```
 You should then have an output similar to the following one (the ID will be different though).
 
@@ -165,7 +173,7 @@ There is something else interesting about the images we build with Docker. When 
 First, check out the image you created earlier by using the history command (remember to use the docker image ls command from earlier exercises to find your image IDs):
 
 ```
-docker image history <image ID>
+$ docker image history <image ID>
 ```
 What you see is the list of intermediate container images that were built along the way to creating your final Node.js app image. Some of these intermediate images will become layers in your final container image. In the history command output, the original Alpine layers are at the bottom of the list and then each customization we added in our Dockerfile is its own step in the output. This is a powerful concept because it means that if we need to make a change to our application, it may only affect a single layer! To see this, we will modify our app a bit and create a new image.
 
@@ -176,7 +184,7 @@ Type the following in to your console window:
 This will add a new line to the bottom of your index.js file from earlier so your application will output one additional line of text. Now we will build a new image using our updated code. We will also tag our new image to mark it as a new version so that anybody consuming our images later can identify the correct version to use:
 
 ```
-docker image build -t hello:v0.2 .
+$ docker image build -t hello:v0.2 .
 ```
 You should see output similar to this:
 
@@ -212,12 +220,12 @@ Now let us reverse our thinking a bit. What if we get a container from Docker St
 The alpine image should already be present locally from the exercises above (use docker image ls to confirm), if it’s not, run the following command to pull it down:
 
 ```
-docker image pull alpine
+$ docker image pull alpine
 ```
 Once we are sure it is there let’s inspect it.
 
 ```
-docker image inspect alpine
+$ docker image inspect alpine
 ```
 There is a lot of information in there:
 
@@ -226,11 +234,13 @@ There is a lot of information in there:
 * the architecture / OS it has been created for
 * metadata of the image
 * …
+
+
 We will not go into all the details here but we can use some filters to just inspect particular details about the image. You may have noticed that the image information is in JSON format. We can take advantage of that to use the inspect command with some filtering info to just get specific data from the image.
 
 Let’s get the list of layers:
 
-```docker image inspect --format "{{ json .RootFS.Layers }}" alpine```
+```$ docker image inspect --format "{{ json .RootFS.Layers }}" alpine```
 
 Alpine is just a small base OS image so there’s just one layer:
 
@@ -245,7 +255,7 @@ Our Hello image is a bit more interesting (your sha256 hashes will vary):
 `["sha256:5bef08742407efd622d243692b79ba0055383bbce12900324f75e56f589aedb0","sha256:5ac283aaea742f843c869d28bbeaf5000c08685b5f7ba01431094a207b8a1df9","sha256:2ecb254be0603a2c76880be45a5c2b028f6208714aec770d49c9eff4cbc3cf25"]`
 We have three layers in our application. Recall that we had the base Alpine image (the FROM command in our Dockerfile), then we had a RUN command to install some packages, then we had a COPY command to add in our javascript code. Those are our layers! If you look closely, you can even see that both alpine and hello are using the same base layer, which we know because they have the same sha256 hash.
 
+## Final notes
 The tools and commands we explored in this lab are just the beginning. Docker Enterprise Edition includes private Trusted Registries with Security Scanning and Image Signing capabilities so you can further inspect and authenticate your images. In addition, there are policy controls to specify which users have access to various images, who can push and pull images, and much more.
 
-Another important note about layers: each layer is immutable. As an image is created and successive layers are added, the new layers keep track of the changes from the layer below. When you start the container running there is an additional layer used to keep track of any changes that occur as the application runs (like the “hello.txt” file we created in the earlier exercises). This design principle is important for both security and data management. If someone mistakenly or maliciously changes something in a running container, you can very easily revert back to its original state because the base layers cannot be changed. Or you can simply start a new container instance which will start fresh from your pristine image. And applications that create and store data (databases, for example) can store their data in a special kind of Docker object called a volume, so that data can persist and be shared with other containers. We will explore volumes in a later lab.
-
+Another important note about layers: each layer is immutable. As an image is created and successive layers are added, the new layers keep track of the changes from the layer below. When you start the container running there is an additional layer used to keep track of any changes that occur as the application runs (like the “hello.txt” file we created in the earlier exercises). This design principle is important for both security and data management. If someone mistakenly or maliciously changes something in a running container, you can very easily revert back to its original state because the base layers cannot be changed. Or you can simply start a new container instance which will start fresh from your pristine image. And applications that create and store data (databases, for example) can store their data in a special kind of Docker object called a volume, so that data can persist and be shared with other containers. 
