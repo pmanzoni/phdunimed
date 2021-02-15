@@ -112,18 +112,19 @@ $ docker container run alpine ls -l
 ```
 ![](https://i.imgur.com/1iQnej7.png)
 
-Más ejemplos:
+More examples:
 ```
 $ docker container run alpine /bin/sh
 
 $ docker container run -it alpine /bin/sh
 ```
 
-¿Que diferencia hay entre estos dos ultimos ejemplos?
+Which is the difference between these two examples?
 
-E.g.,:
+<!--
+E.g., try:
 `/ # ip a `
-
+-->
 
 ---
 
@@ -211,12 +212,35 @@ $ docker run -dit --name alpine1 alpine ash
 
 Use the docker `attach` command to connect to this container:
 
-``` bash 
+```bash 
 $ docker attach alpine1
 / #
 ```
 
 Detach from alpine1 without stopping it by using the detach sequence, `CTRL + p CTRL + q` (*hold down CTRL and type p followed by q*). 
+
+If you want to keep the container running after the end of the session, you need to daemonize it:
+
+```
+docker run --name daemon -d ubuntu /bin/sh -c "while true; do echo hello world; sleep 1; done" 
+```
+
+Let’s check the logs and see what the daemon container is doing right now:
+
+```
+docker logs -f daemon  
+```
+Console output:
+
+```
+...
+hello world  
+hello world  
+hello world  
+```
+
+docker logs fetch the logs of a container, the `-f` flag to follow the log output (works actually like tail -f).
+
 
 
 ### Finally:
