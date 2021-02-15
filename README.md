@@ -8,14 +8,14 @@ Various cases studies will be presented, the main one being OpenThread. OpenThre
 The course is organized as a succession of theoretical and experimental (hands-on) parts.
 
 ## Index
-* Docker intro
-* PART 1: the basics
-* PART 2: Building an image: basic steps
-* PART 3: Networking with standalone containers
+* [Docker intro](https://github.com/pmanzoni/phdunimed/blob/main/slides/1_docker.pdf)
+* [PART 1: the basics](https://hackmd.io/oNBMMGCPRmyrjxM6xmXMmw)
+* [PART 2: Building an image: basic steps](https://hackmd.io/F192w34sRsW-1JfSXfOKUQ)
+* [PART 3: Networking with standalone containers](https://hackmd.io/5KCTsfhSTpudrMUXZNSM0g)
 * PART 4: Building an image: an example with Flask
-* PART 5: Processing and visualizing data with InfluxDB & Grafana
-  - LoRaWAN basics
+* [PART 5: Processing and visualizing data with InfluxDB & Grafana](https://hackmd.io/y093octqRKm9AqpD7jm8CA)
+  - [LoRaWAN basics](https://github.com/pmanzoni/phdunimed/blob/main/slides/5_lorawan.pdf)
 * PART 6: Containerized MQTT
-  - MQTT basics
-* PART 7: Simulating a Thread network using OpenThread
-  - OpenThread basics
+  - [MQTT basics](https://github.com/pmanzoni/phdunimed/blob/main/slides/6_MQTT.pdf)
+* [PART 7: Simulating a Thread network using OpenThread](https://hackmd.io/sV7hqy70SwyQ1rMHpqMoBQ)
+  - [OpenThread basics](https://github.com/pmanzoni/phdunimed/blob/main/slides/7_openthread.pdf)
