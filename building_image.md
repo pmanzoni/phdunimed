@@ -5,7 +5,7 @@
 
 > https://training.play-with-docker.com/ops-s1-images/
 
-## Basic steps
+# Basic steps
 
 
 First thing you may want to do is figure out how to create our own images. While there are over 700K images on Docker Store it is almost certain that none of them are exactly what you run in your data center today. Even something as common as a Windows OS image would get its own tweaks before you actually run it in production. 
@@ -259,49 +259,9 @@ Our Hello image is a bit more interesting (your sha256 hashes will vary):
 We have three layers in our application. Recall that we had the base Alpine image (the FROM command in our Dockerfile), then we had a RUN command to install some packages, then we had a COPY command to add in our javascript code. Those are our layers! If you look closely, you can even see that both alpine and hello are using the same base layer, which we know because they have the same sha256 hash.
 
 
-# PART 4:  Building an image: an example with Flask
+# An example with Flask
 
 >**Note:** This lab is based on [Docker Tutorials and Labs](https://github.com/docker/labs/blob/master/beginner/chapters/webapps.md#23-create-your-first-image).
----
-
-
-## Docker Images
-In this section we will build our own image, use that image to run an application locally, and finally, push some of our own images to the 
-[![](https://i.imgur.com/e1O1LbO.png)](https://hub.docker.com/) 
-:::info
-The docker hub is also referred to as Docker Store or Docker Cloud.
-:::
-
-
-
----
-
-
-For simplicity, you can think of an image as a git repository, that is images can be [committed](https://docs.docker.com/engine/reference/commandline/commit/) with changes and have multiple versions. 
-
-For example you could pull a specific version of `ubuntu` image as follows:
-
-```bash
-$ docker pull ubuntu:12.04
-```
-
----
-
-
-If you do not specify the version number of the image the Docker client will default to a version named `latest`.
-
-So for example, the `docker pull` command given below will pull an image named `ubuntu:latest`:
-
-```bash
-$ docker pull ubuntu
-```
-
----
-
-
-To get a new Docker image you can either get it from a registry (such as the Docker Store) or create your own. There are hundreds of thousands of images available on [Docker Hub](https://store.docker.com). You can also search for images directly from the command line using `docker search`.
-
----
 
 
 An important distinction with regard to images is between _base images_ and _child images_.
@@ -309,9 +269,6 @@ An important distinction with regard to images is between _base images_ and _chi
 - **Base images** are images that have no parent images, usually images with an OS like ubuntu, alpine or debian.
 
 - **Child images** are images that are built on base images and add additional functionality.
-
----
-
 
 Another key concept is the idea of _official images_ and _user images_. (Both of which can be base images or child images.)
 
@@ -323,12 +280,10 @@ To find out more about them, check out the [Official Images Documentation](https
 
 - **User images** are images created and shared by users like you. They build on base images and add additional functionality. Typically these are formatted as `user/image-name`. The `user` value in the image name is your Docker Store user or organization name.
 
----
 ___
 
 
-## Creating our first image
->**Note:** The code of this section is in [this repository](https://www.dropbox.com/sh/e6zxf2t76rvk7e7/AAC7voT8yMAZNkLPpd1iaF34a?dl=0). 
+>**Note:** The code of this section is in [the code directory](https://github.com/pmanzoni/phdunimed/tree/main/code/flask-master). 
 
 
 
@@ -648,7 +603,7 @@ $ docker rm myfirstapp
 
 
 
-## Final notes
+# Final notes
 The tools and commands we explored in this lab are just the beginning. Docker Enterprise Edition includes private Trusted Registries with Security Scanning and Image Signing capabilities so you can further inspect and authenticate your images. In addition, there are policy controls to specify which users have access to various images, who can push and pull images, and much more.
 
 Another important note about layers: each layer is immutable. As an image is created and successive layers are added, the new layers keep track of the changes from the layer below. When you start the container running there is an additional layer used to keep track of any changes that occur as the application runs (like the “hello.txt” file we created in the earlier exercises). This design principle is important for both security and data management. If someone mistakenly or maliciously changes something in a running container, you can very easily revert back to its original state because the base layers cannot be changed. Or you can simply start a new container instance which will start fresh from your pristine image. And applications that create and store data (databases, for example) can store their data in a special kind of Docker object called a volume, so that data can persist and be shared with other containers. 
