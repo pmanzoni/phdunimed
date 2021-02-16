@@ -9,7 +9,7 @@ The course is organized as a succession of theoretical and experimental (hands-o
 
 ## Index
 * [Docker intro](https://github.com/pmanzoni/phdunimed/blob/main/slides/1_docker.pdf)
-* [PART 1: the basics](https://hackmd.io/oNBMMGCPRmyrjxM6xmXMmw)
+* [PART 1: the basics](https://hackmd.io/@phdunimed/BJ4Zb39l_)
 * [PART 2: Building an image](https://hackmd.io/@phdunimed/B1l7nxlWu)
 * [PART 3: Networking with standalone containers](https://hackmd.io/5KCTsfhSTpudrMUXZNSM0g)
 * [PART 5: Processing and visualizing data with InfluxDB & Grafana](https://hackmd.io/y093octqRKm9AqpD7jm8CA)
