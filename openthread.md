@@ -5,21 +5,6 @@
 > :copyright:  https://codelabs.developers.google.com/codelabs/openthread-simulation/#0
 
 
-:::info
-Todo el código necesario para esta sesión de laboratorio está disponible en:[Poliformat/RSE: Recursos/Laboratorio/Maquina Virtual y Código](https://poliformat.upv.es/x/v9KJeS) en la carpeta `codigo_practicas`.
-
----
-
-Podeis utilizar Docker en vuestra maquina instalandolo siguendo las indicaciones que están aqui: https://docs.docker.com/get-docker/
-
-Existe tambien una maquina virtual especifica para el uso de Docker en: 
-**RSE: Recursos /  Laboratorio / Maquina Virtual y Código / ubudocker.ova** 
-
-Tienes que utilizar  VirtualBox  con la opción: "Archivo / Importar servicio virtualizado".
-
-La maquina tiene un usuario "**docker**" con password "**docker**"
-:::
-
 ## Introduction
 
 [OpenThread](https://github.com/openthread) released by Google is an open-source implementation of the [Thread](http://threadgroup.org/) networking protocol. Google Nest has released OpenThread to make the technology used in Nest products broadly available to developers to accelerate the development of products for the connected home.
@@ -156,12 +141,10 @@ IMPORTANT:  note down the:
 :::
 
 :::danger
-1. Indica los datos del "Operation Dataset" que has creato:
+1. Indicate the data of the "Operation Dataset"  that you have created:
 - Master Key: 
 - Network Name: 
 - PAN ID:
-
-Apunta el resultado en el documento a entregar.
 :::
 
 We bring up the IPv6 interface:
@@ -202,9 +185,8 @@ Note the specific IPv6 address types:
 * Begins with fe80 = link-local
 
 :::danger
-2. Indica la dirección link-local de tu dispositivo.
+2. Indicate the link-local address of your device
 
-Apunta el resultado en el documento a entregar.
 :::
 
 
@@ -214,9 +196,7 @@ Mesh-local address types are classified further:
 in this case = **fd61:2344:9a52:ede0:d041:c5ba:a7bc:5ce6**
 
 :::danger
-3. Indica el Endpoint Identifier (EID) del primer dispositivo.
-
-Apunta el resultado en el documento a entregar.
+3. Indicate the Endpoint Identifier (EID) of the first device.
 :::
 
 
@@ -298,7 +278,7 @@ Verify connectivity between the two emulated Thread devices. In Node 2, ping the
 ```
 
 :::danger
-4. Indica la latencia del Ping al Node 1 desde el nodo Node 2 en el documento a entregar.
+4. Note down the latency of the ping to node 1 from node 2.
 :::
 
 
@@ -481,7 +461,7 @@ Now that Node 2 is authenticated, start Thread (on both nodes):
 Done
 ```
 :::danger
-5. Indica el documento a entregar el mensaje obtenido en pantalla despues del Join. Es algo tipo: 
+5. Note down the message obtained on screen after Join; should be something like: 
 
 ``` 
 Commissioner: Joiner connect d65e64fa83f81cf7
@@ -591,7 +571,7 @@ Done
 ```
 
 :::warning
-Where 600 is the value of the joiner timeout in seconds (i.e., 10 minutes). If you are not fast enough in typing the following commands yo can use an higher value
+Where 600 is the value of the joiner timeout in seconds (i.e., 10 minutes). If you are not fast enough in typing the following commands you can use an higher value
 :::
 
 We now execute the other 2 routers (number 2 and 3):
@@ -907,7 +887,7 @@ Done
 
 
 :::danger
-6. Reporta en el documento a entregar las estadisticas de funcionamiento de los dos routers de la red
+6. Report the operating statistics of the two network routers
 :::
 
 
