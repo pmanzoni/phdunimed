@@ -10,9 +10,8 @@ The course is organized as a succession of theoretical and experimental (hands-o
 ## Index
 * [Docker intro](https://github.com/pmanzoni/phdunimed/blob/main/slides/1_docker.pdf)
 * [PART 1: the basics](https://hackmd.io/oNBMMGCPRmyrjxM6xmXMmw)
-* [PART 2: Building an image: basic steps](https://hackmd.io/F192w34sRsW-1JfSXfOKUQ)
+* [PART 2: Building an image](https://hackmd.io/@phdunimed/B1l7nxlWu)
 * [PART 3: Networking with standalone containers](https://hackmd.io/5KCTsfhSTpudrMUXZNSM0g)
-* [PART 4: Building an image: an example with Flask](https://hackmd.io/b1GYLvgKQEOj2FzIsMlweQ)
 * [PART 5: Processing and visualizing data with InfluxDB & Grafana](https://hackmd.io/y093octqRKm9AqpD7jm8CA)
   - [LoRaWAN basics](https://github.com/pmanzoni/phdunimed/blob/main/slides/5_lorawan.pdf)
 * [PART 6: Containerized MQTT](https://hackmd.io/sLzw_8Q1QFqnoY13kiyAag)
