@@ -33,6 +33,21 @@ In this part we will use a **public broker**. There are various public brokers (
 An extensive list is available here:  https://github.com/mqtt/mqtt.github.io/wiki/public_brokers
 
 
+A local broker can be run as a container, too. Mosquitto has an official image here:
+https://hub.docker.com/_/eclipse-mosquitto
+
+![](https://i.imgur.com/WgKPEna.png)
+
+The simplest form to execute the broker is: 
+```
+docker run -it -p 1883:1883 eclipse-mosquitto:1.6
+```
+
+the more complete form is, as indicated in the docker hub:
+```
+docker run -it -p 1883:1883 -p 9001:9001 -v mosquitto.conf:/mosquitto/config/mosquitto.conf -v /mosquitto/data -v /mosquitto/log eclipse-mosquitto
+```
+
 
 ### A simple subscriber
 
@@ -161,23 +176,4 @@ docker run -t pmanzoni/subttn
 we will get the result above? 
 Which is the content of the Dockerfile?
 Which are the steps to follow?
-
-
-## Running a broker
-
-A broker can be run as a container, too. Mosquitto has an official image here:
-https://hub.docker.com/_/eclipse-mosquitto
-
-![](https://i.imgur.com/WgKPEna.png)
-
-The simplest form to execute the broker is: 
-```
-docker run -it -p 1883:1883 eclipse-mosquitto:1.6
-```
-
-the more complete form is, as indicated in the docker hub:
-```
-docker run -it -p 1883:1883 -p 9001:9001 -v mosquitto.conf:/mosquitto/config/mosquitto.conf -v /mosquitto/data -v /mosquitto/log eclipse-mosquitto
-```
-
 
