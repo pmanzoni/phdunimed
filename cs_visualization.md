@@ -1,24 +1,6 @@
-# A case study: Processing and visualizing data with InfluxDB & Grafana
+# Case study: Processing and visualizing data with InfluxDB & Grafana
 
 [![hackmd-github-sync-badge](https://hackmd.io/y093octqRKm9AqpD7jm8CA/badge)](https://hackmd.io/y093octqRKm9AqpD7jm8CA)
-
-
-
-
-:::info
-Todo el código necesario para esta sesión de laboratorio está disponible en:[Poliformat/RSE: Recursos/Laboratorio/Maquina Virtual y Código](https://poliformat.upv.es/x/v9KJeS) en la carpeta `codigo_practicas`.
-
----
-
-Podeis utilizar Docker en vuestra maquina instalandolo siguendo las indicaciones que están aqui: https://docs.docker.com/get-docker/
-
-Existe tambien una maquina virtual especifica para el uso de Docker en: 
-**RSE: Recursos /  Laboratorio / Maquina Virtual y Código / ubudocker.ova** 
-
-Tienes que utilizar  VirtualBox  con la opción: "Archivo / Importar servicio virtualizado".
-
-La maquina tiene un usuario "**docker**" con password "**docker**"
-:::
 
 
 
@@ -263,13 +245,6 @@ you can actually choose among a lot of data "field".
 You can add as many variables as you want to the same Dashboard. 
 
 
-:::danger
-1.- Haz una captura de pantalla de la dashboard que has creado e insertala en el documento a entregar.
-
-:::
-
-
-
 ## InfluxDB and Python
 You can interact with your Influx database using Python. You need to install a library called `influxdb`. 
 
@@ -355,13 +330,6 @@ for item in points:
 ```
 
 which prints all the temperature values of the last hours that are not "None".
-
-:::danger
-2.- Crea un programa python que imprima en pantalla los datos del ultimo dia.
-Adjunta el codigo en el documento a entregar.
-
-:::
-
 
 
 ## Cleaning up
