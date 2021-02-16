@@ -68,6 +68,28 @@ $ docker container run hello-world
 
 ---
 
+
+For simplicity, you can think of an image as a git repository, that is images can be [committed](https://docs.docker.com/engine/reference/commandline/commit/) with changes and have multiple versions. 
+
+For example you could pull a specific version of `ubuntu` image as follows:
+
+```bash
+$ docker pull ubuntu:12.04
+```
+
+If you do not specify the version number of the image the Docker client will default to a version named `latest`.
+
+So for example, the `docker pull` command given below will pull an image named `ubuntu:latest`:
+
+```bash
+$ docker pull ubuntu
+```
+
+To get a new Docker image you can either get it from a registry (such as the Docker Store) or create your own. There are hundreds of thousands of images available on [Docker Hub](https://store.docker.com). You can also search for images directly from the command line using `docker search`.
+
+
+
+
 ## Run an interactive Ubuntu container
 
 The following command runs an ubuntu container, attaches interactively ('`-i`') to your local command-line session ('`-t`'), and runs /bin/bash.
