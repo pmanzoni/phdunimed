@@ -13,15 +13,15 @@ You can download and install Docker on multiple platforms. Refer to the followin
 https://docs.docker.com/get-docker/
 and choose the best installation path for you.
 
-Option 2:
-You can execute it online: 
-https://labs.play-with-docker.com/
-
-
-Option 3: 
+Option 2: 
 You can use a virtual machine that you can [download here](https://www.dropbox.com/s/frur6hfwanc9fwl/ubudocker.ova?dl=0)
 You have to use  VirtualBox  with the option: "Files / Import virtualized service".
 The VM has user "**docker**" with password "**docker**"
+
+Option 3:
+You can execute it online: 
+https://labs.play-with-docker.com/
+
 :::
 
 
