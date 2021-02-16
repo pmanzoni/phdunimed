@@ -1,4 +1,4 @@
-# PART 6: containerized MQTT
+# Case study: containerized MQTT
 
 [![hackmd-github-sync-badge](https://hackmd.io/sLzw_8Q1QFqnoY13kiyAag/badge)](https://hackmd.io/sLzw_8Q1QFqnoY13kiyAag)
 
