@@ -16,5 +16,5 @@ The course is organized as a succession of theoretical and experimental (hands-o
   - [LoRaWAN basics](https://github.com/pmanzoni/phdunimed/blob/main/slides/5_lorawan.pdf)
 * [PART 5: Containerized MQTT](https://hackmd.io/@phdunimed/rJUh4GlZu)
   - [MQTT basics](https://github.com/pmanzoni/phdunimed/blob/main/slides/6_MQTT.pdf)
-* [PART 7: Simulating a Thread network using OpenThread](https://hackmd.io/sV7hqy70SwyQ1rMHpqMoBQ)
+* [PART 6: Simulating a Thread network using OpenThread](https://hackmd.io/@phdunimed/HJSYZ2cxO)
   - [OpenThread basics](https://github.com/pmanzoni/phdunimed/blob/main/slides/7_openthread.pdf)
