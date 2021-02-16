@@ -1,4 +1,4 @@
-# PART 3: Networking with standalone containers
+# Networking with standalone containers
 
 [![hackmd-github-sync-badge](https://hackmd.io/5KCTsfhSTpudrMUXZNSM0g/badge)](https://hackmd.io/5KCTsfhSTpudrMUXZNSM0g)
 
