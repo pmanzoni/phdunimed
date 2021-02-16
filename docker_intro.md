@@ -1,7 +1,7 @@
 [![hackmd-github-sync-badge](https://hackmd.io/oNBMMGCPRmyrjxM6xmXMmw/badge)](https://hackmd.io/oNBMMGCPRmyrjxM6xmXMmw)
 
 
-# PART 1: the basics
+# Docker: the basics
 > based on     
 > * https://training.play-with-docker.com/dev-stage1/
 > * https://training.play-with-docker.com/ops-s1-hello/
