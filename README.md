@@ -12,7 +12,7 @@ The course is organized as a succession of theoretical and experimental (hands-o
 * [PART 1: the basics](https://hackmd.io/@phdunimed/BJ4Zb39l_)
 * [PART 2: Building an image](https://hackmd.io/@phdunimed/B1l7nxlWu)
 * [PART 3: Networking with standalone containers](https://hackmd.io/@phdunimed/B1Dnrg1Wu)
-* [PART 5: Processing and visualizing data with InfluxDB & Grafana](https://hackmd.io/y093octqRKm9AqpD7jm8CA)
+* [PART 4: Processing and visualizing data with InfluxDB & Grafana](https://hackmd.io/@phdunimed/rkm_b3qld)
   - [LoRaWAN basics](https://github.com/pmanzoni/phdunimed/blob/main/slides/5_lorawan.pdf)
 * [PART 6: Containerized MQTT](https://hackmd.io/sLzw_8Q1QFqnoY13kiyAag)
   - [MQTT basics](https://github.com/pmanzoni/phdunimed/blob/main/slides/6_MQTT.pdf)
