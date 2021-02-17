@@ -21,7 +21,7 @@ To understand the terms: **mesh**, **Thread**, and **OpenThread** you have to fi
 
 
 
-A longer [video is available here](https://www.youtube.com/watch?v=JPXw5Hw--4M) ... but you can watch it after the lab :)
+A longer [video is available here](https://www.youtube.com/watch?v=JPXw5Hw--4M) :)
 
 
 ## Learning OpenThread using Docker
@@ -42,11 +42,11 @@ What you'll learn:
 The `openthread/codelab_otsim` Docker image features OpenThread and `wpantund` pre-built and ready to use.
 
 ```bash
-$ sudo docker pull openthread/codelab_otsim:latest
+$ docker pull openthread/codelab_otsim:latest
 ``` 
 
 ### Simulate a Thread network
-The example application you'll use for this Codelab demonstrates a minimal OpenThread application that exposes the OpenThread configuration and management interfaces via a basic command-line interface (CLI).
+The example application you'll use demonstrates a minimal OpenThread application that exposes the OpenThread configuration and management interfaces via a basic command-line interface (CLI).
 
 This exercise takes you through the minimal steps required to ping one emulated Thread device from another emulated Thread device.
 
@@ -66,7 +66,7 @@ The figure below describes a basic Thread network topology. For this exercise, w
 In a terminal window, we start a Docker container from the image and connect to its bash shell:
 
 ```bash
-$ sudo docker run --name codelab_otsim_ctnr -it --rm \
+$ docker run --name codelab_otsim_ctnr -it --rm \
    --sysctl net.ipv6.conf.all.disable_ipv6=0 \
    --cap-add=net_admin openthread/codelab_otsim bash
 ``` 
@@ -86,10 +86,15 @@ In the Docker container, we navigate to the `openthread`directory and spawn the 
 Remember: FTD -> Full Thread Device
 :::
 
-```bash 
+```
 # cd /root/src/openthread
 # ./output/simulation/bin/ot-cli-ftd 1
 ``` 
+:::warning
+IMPORTANT: If you don't see the > prompt after running this command, press enter.
+:::
+
+
  
 
 The IEEE 802.15.4 radio driver is implemented on top of UDP (IEEE 802.15.4 frames are passed within UDP payloads).
@@ -98,10 +103,6 @@ The **argument of 1** is a file descriptor that represents the least-significant
 
 :::warning
 Only file descriptors of 1 or greater can be used when spawning the process for an emulated device. A file descriptor of 0 is reserved for other use.
-:::
-
-:::info
-IMPORTANT: If you don't see the > prompt after running this command, press enter.
 :::
 
 **Creating a new Operational Dataset and commit it as the active one.**
@@ -186,7 +187,6 @@ Note the specific IPv6 address types:
 
 :::danger
 2. Indicate the link-local address of your device
-
 :::
 
 
@@ -207,7 +207,7 @@ The RLOC will change as the network topology changes and a Thread device switche
 Open a new terminal and execute a **bash shell in the currently running Docker container** to use for Node 2.
 
 ```
-$ sudo docker exec -it codelab_otsim_ctnr bash
+$ docker exec -it codelab_otsim_ctnr bash
 ```
 As before, we navigate to the openthread directory and spawn the CLI process. This is the second emulated Thread device:
 
@@ -314,16 +314,18 @@ Done
 root@c0f3912a74ff:/#
 ```
 
-_You may have to press enter a few times to bring the > prompt back after a factoryreset command._ 
+You may have to press enter a few times to bring the > prompt back after a factoryreset command.
 
-Do not exit the Docker container.
+**Do not exit the Docker container.**
 
 Also factory reset and exit Node 1:
 
+```
 > factoryreset
 >
 > exit
 root@c0f3912a74ff:/#
+```
 
 
 ---
@@ -454,12 +456,6 @@ Join success
 ```
 These are normal and can be ignored.
 
-Now that Node 2 is authenticated, start Thread (on both nodes):
-
-```
-> thread start
-Done
-```
 :::danger
 5. Note down the message obtained on screen after Join; should be something like: 
 
@@ -471,6 +467,15 @@ Commissioner: Joiner connect d65e64fa83f81cf7
 ...
 ```
 :::
+
+
+
+Now that Node 2 is authenticated, start Thread (**on both nodes**):
+
+```
+> thread start
+Done
+```
 
 
 #### Validate network authentication
@@ -526,7 +531,7 @@ We will use the word child and childs, altough grammatically incorrect to indica
 
 Executing the first node:
 ```
-$ sudo docker run --name codelab_otsim_ctnr -it --rm\
+$ docker run --name codelab_otsim_ctnr -it --rm\
     --sysctl net.ipv6.conf.all.disable_ipv6=0\
     --cap-add=net_admin openthread/codelab_otsim bash
 ...
@@ -577,7 +582,7 @@ Where 600 is the value of the joiner timeout in seconds (i.e., 10 minutes). If y
 We now execute the other 2 routers (number 2 and 3):
 
 ```
-$ sudo docker exec -it codelab_otsim_ctnr bash
+$ docker exec -it codelab_otsim_ctnr bash
 root@c9f1c6a8f32a:/# cd ~/src/openthread/
 root@c9f1c6a8f32a:~/src/openthread# ./output/simulation/bin/ot-cli-ftd 2
 
@@ -677,7 +682,7 @@ Basically to assign a child to a router, we have to set `parentpriority=1` to th
 To assign a child to router 3 we have to sewill set `parentpriority 1` to it and `parentpriority -2` to the leader and to router 2, and then:
 
 ```
-$ sudo docker exec -it codelab_otsim_ctnr bash
+$ docker exec -it codelab_otsim_ctnr bash
 root@c9f1c6a8f32a:/# cd ~/src/openthread/
 root@c9f1c6a8f32a:~/src/openthread# ./output/simulation/bin/ot-cli-mtd 4
 
@@ -730,7 +735,7 @@ Done
 We create now a child for the Leader by assigning to the Leader `parentpriority 1`  and `parentpriority -2` to the  router 2 and 3, and then, as usual:
 
 ```
-$ sudo docker exec -it codelab_otsim_ctnr bash
+$ docker exec -it codelab_otsim_ctnr bash
 root@c9f1c6a8f32a:/# cd ~/src/openthread/
 root@c9f1c6a8f32a:~/src/openthread# ./output/simulation/bin/ot-cli-mtd 5
 
