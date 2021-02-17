@@ -24,9 +24,7 @@ Some widely used tools are:
 ![](https://i.imgur.com/aANRGpe.png)
 
 
-In this Lab we will use the containers platform [Docker](https://www.docker.com/). Docker can be easily installed in basically any OS, and in [SBCs like a Raspberry Pi.](https://www.raspberrypi.org/blog/docker-comes-to-raspberry-pi/)
-
-
+In this Lab we will use the containers platform [Docker](https://www.docker.com/). 
 We will use the following images:
 * https://hub.docker.com/_/telegraf
 * https://hub.docker.com/_/influxdb
@@ -122,7 +120,7 @@ We have to first create the configuration file `telegraf.conf` in our working di
       username = "telegraf"
       password = "superpa$$word"
 
-where you have to change the "XXX" for `username` and the "ttn-account-XXX" for `password` with the values you get from TTN (remember [Seminar 4](https://hackmd.io/@pmanzoni/mqttlorawan)):
+where you have to change the "XXX" for `username` and the "ttn-account-XXX" for `password` with the values below:
 
 ``` 
 Username: lopy2ttn
@@ -138,6 +136,13 @@ Then execute:
 ```
 $ docker run -d -v $PWD/telegraf.conf:/etc/telegraf/telegraf.conf:ro --net=container:influxdb telegraf 
 ```
+
+This last part is interesting:
+```
+–net=container:NAME_or_ID
+```
+tells Docker to put this container’s processes inside of the network stack that has already been created inside of another container. The new container’s processes will be confined to their own filesystem and process list and resource limits, but **will share the same IP address and port numbers as the first container, and processes on the two containers will be able to connect to each other over the loopback interface.**
+
 
 Check if the data is sent from Telegraf to InfluxDB, by re-entering in the InfluxDB container:
 
@@ -313,6 +318,7 @@ You can get mean values (`mean`), number of items (`count`), or apply other cond
     >>> client.query('select count(payload_fields_temperature) from mqtt_consumer')
     >>> client.query('select * from mqtt_consumer WHERE time > now() - 7d')
     
+    
 Finally, everything can clearly run in a unique python file, like: 
 
 ```python=
@@ -330,6 +336,9 @@ for item in points:
 ```
 
 which prints all the temperature values of the last hours that are not "None".
+
+
+How would you create an image to store this code?
 
 
 ## Cleaning up
