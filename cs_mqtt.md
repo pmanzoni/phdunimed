@@ -20,7 +20,7 @@ $ sudo pip3 install paho-mqtt
 The documentation of the MQTT Paho API is here: https://www.eclipse.org/paho/clients/python/docs/ 
 :::
 
-
+> The code of this section is in [the code directory](https://github.com/pmanzoni/phdunimed/tree/main/code/flask-master). 
 
 ## Programming MQTT
 
@@ -55,7 +55,7 @@ File: `sisub.py` cointains the code of a simple python subscriber. This code con
 
 Let's see:
 :::info
-https://repl.it/@pmanzoni/sisubtest
+https://repl.it/@pmanzoni/sisubbase
 :::
 
 ### A simple producer
@@ -67,7 +67,7 @@ Let's see:
 https://repl.it/@pmanzoni/sipubtest
 :::
 
-To check whether this is working we can use the previous code.
+To check whether this is working we can use the previous code `sisub.py` ... with a [slight modification.](https://repl.it/@pmanzoni/sisubforsipub#main.py)
 
 
 
@@ -76,7 +76,7 @@ To check whether this is working we can use the previous code.
 
 [The Things Network uses MQTT](https://www.thethingsnetwork.org/docs/applications/mqtt/index.html)to publish device activations and messages, but also allows you to publish a message for a specific device in response.
 
-We will now use MQTT to get information from TTN as we did in the previous case. The basic data we need is the following:
+We will now use MQTT to get information from TTN as we did in the InfluxDB case. The basic data we need is the following:
 
 ``` 
 Broker: eu.thethings.network
