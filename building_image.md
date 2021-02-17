@@ -14,6 +14,26 @@ We will start with the simplest form of image creation, in which we simply commi
 
 We will then see how to get the details of an image through the inspection and explore the filesystem to have a better understanding of what happens under the hood.
 
+An important distinction with regard to images is between _base images_ and _child images_.
+
+- **Base images** are images that have no parent images, usually images with an OS like ubuntu, alpine or debian.
+
+- **Child images** are images that are built on base images and add additional functionality.
+
+Another key concept is the idea of _official images_ and _user images_. (Both of which can be base images or child images.)
+
+- **Official images** are Docker sanctioned images. Docker, Inc. sponsors a dedicated team that is responsible for reviewing and publishing all Official Repositories content. This team works in collaboration with upstream software maintainers, security experts, and the broader Docker community. These are not prefixed by an organization or user name. Images like `python`, `node`, `alpine` and `nginx` are official (base) images. 
+
+:::info
+To find out more about them, check out the [Official Images Documentation](https://docs.docker.com/docker-hub/official_repos/).
+:::
+
+- **User images** are images created and shared by users like you. They build on base images and add additional functionality. Typically these are formatted as `user/image-name`. The `user` value in the image name is your Docker Store user or organization name.
+
+___
+
+
+
 ## Image creation from a container
 Let’s start by running an interactive shell in a ubuntu container:
 
@@ -47,7 +67,7 @@ Before we create our own image, we might want to inspect all the changes we made
 $ docker container diff <container ID>
 ```
 
-for the container you just created. You should see a list of all the files that were added to or changed in the container when you installed figlet. Docker keeps track of all of this information for us. This is part of the layer concept we will explore in a few minutes.
+for the container you just created. You should see a list of all the files that were **added** (A) to or **changed** (C ) in the container when you installed figlet. Docker keeps track of all of this information for us. This is part of the layer concept we will explore in a few minutes.
 
 Now, to create an image we need to “commit” this container. Commit creates an image locally on the system running the Docker engine. Run the following command, using the container ID you retrieved, in order to commit the container and create an image out of it.
 
@@ -105,15 +125,15 @@ As the figlet package is present in our ourfiglet image, the command returns the
 ```
 This example shows that we can create a container, add all the libraries and binaries in it and then commit it in order to create an image. We can then use that image just as we would for images pulled down from the Docker Store. We still have a slight issue in that our image is only stored locally. To share the image we would want to push the image to a registry somewhere. We'll see how to do this later...
 
-This approach of manually installing software in a container and then committing it to a custom image is just one way to create an image. It works fine and is quite common. However, there is a more powerful way to create images. In the following exercise we will see how images are created using a Dockerfile, which is a text file that contains all the instructions to build an image.
+This approach of manually installing software in a container and then committing it to a custom image is just one way to create an image. It works fine and is quite common. However, there is a more powerful way to create images. In the following exercise we will see how images are created **using a Dockerfile**, which is a text file that contains all the instructions to build an image.
 
 ## Image creation using a Dockerfile
 
-Instead of creating a static binary image, we can use a file called a Dockerfile to create an image. The final result is essentially the same, but with a Dockerfile we are supplying the instructions for building the image, rather than just the raw binary files. This is useful because it becomes much easier to manage changes, especially as your images get bigger and more complex.
+Instead of creating a static binary image, we can use a file called a Dockerfile to create an image. The final result is essentially the same, but with a Dockerfile we are supplying the instructions for building the image, rather than just the raw binary files. **This is useful because it becomes much easier to manage changes**, especially as your images get bigger and more complex.
 
-Dockerfiles are powerful because they allow us to manage how an image is built, rather than just managing binaries. In practice, Dockerfiles can be managed the same way you might manage source code: they are simply text files so almost any version control system can be used to manage Dockerfiles over time.
+Dockerfiles are powerful because they allow us to manage how an image is built, rather than just managing binaries. In practice, **Dockerfiles can be managed the same way you might manage source code**: they are simply text files so almost any version control system can be used to manage Dockerfiles over time.
 
-We will use a simple example in this section and build a “hello world” application in Node.js. Do not be concerned if you are not familiar with Node.js: Docker (and this exercise) does not require you to know all these details.
+We will use a simple example in this section and build a “hello world” application in [Node.js](https://nodejs.org/en/). *Do not be concerned if you are not familiar with Node.js; Docker (and this exercise) does not require you to know all these details.*
 
 We will start by creating a file in which we retrieve the hostname and display it. 
 
@@ -243,7 +263,9 @@ We will not go into all the details here but we can use some filters to just ins
 
 Let’s get the list of layers:
 
-```$ docker image inspect --format "{{ json .RootFS.Layers }}" alpine```
+```
+$ docker image inspect --format "{{ json .RootFS.Layers }}" alpine
+```
 
 Alpine is just a small base OS image so there’s just one layer:
 
@@ -252,38 +274,22 @@ Alpine is just a small base OS image so there’s just one layer:
 ```
 Now let’s look at our custom Hello image. You will need the image ID (use docker image ls if you need to look it up):
 
-```docker image inspect --format "{{ json .RootFS.Layers }}" <image ID```
+```docker image inspect --format "{{ json .RootFS.Layers }}" <image ID>```
+
 Our Hello image is a bit more interesting (your sha256 hashes will vary):
 
-`["sha256:5bef08742407efd622d243692b79ba0055383bbce12900324f75e56f589aedb0","sha256:5ac283aaea742f843c869d28bbeaf5000c08685b5f7ba01431094a207b8a1df9","sha256:2ecb254be0603a2c76880be45a5c2b028f6208714aec770d49c9eff4cbc3cf25"]`
+`["sha256:5bef08742407efd622d243692b79ba0055383bbce12900324f75e56f589aedb0","sha256:5ac283aaea742f843c869d28bbeaf5000c08685b5f7ba01431094a207b8a1df9","sha256:2ecb254be0603a2c76880be45a5c2b028f6208714aec770d49c9eff4cbc3cf25"]` 
+
 We have three layers in our application. Recall that we had the base Alpine image (the FROM command in our Dockerfile), then we had a RUN command to install some packages, then we had a COPY command to add in our javascript code. Those are our layers! If you look closely, you can even see that both alpine and hello are using the same base layer, which we know because they have the same sha256 hash.
 
 
 # An example with Flask
 
->**Note:** This lab is based on [Docker Tutorials and Labs](https://github.com/docker/labs/blob/master/beginner/chapters/webapps.md#23-create-your-first-image).
-
-
-An important distinction with regard to images is between _base images_ and _child images_.
-
-- **Base images** are images that have no parent images, usually images with an OS like ubuntu, alpine or debian.
-
-- **Child images** are images that are built on base images and add additional functionality.
-
-Another key concept is the idea of _official images_ and _user images_. (Both of which can be base images or child images.)
-
-- **Official images** are Docker sanctioned images. Docker, Inc. sponsors a dedicated team that is responsible for reviewing and publishing all Official Repositories content. This team works in collaboration with upstream software maintainers, security experts, and the broader Docker community. These are not prefixed by an organization or user name. Images like `python`, `node`, `alpine` and `nginx` are official (base) images. 
-
-:::info
-To find out more about them, check out the [Official Images Documentation](https://docs.docker.com/docker-hub/official_repos/).
-:::
-
-- **User images** are images created and shared by users like you. They build on base images and add additional functionality. Typically these are formatted as `user/image-name`. The `user` value in the image name is your Docker Store user or organization name.
-
-___
-
-
->**Note:** The code of this section is in [the code directory](https://github.com/pmanzoni/phdunimed/tree/main/code/flask-master). 
+>**Note:** 
+>
+>This lab is based on [Docker Tutorials and Labs](https://github.com/docker/labs/blob/master/beginner/chapters/webapps.md#23-create-your-first-image).
+>
+> The code of this section is in [the code directory](https://github.com/pmanzoni/phdunimed/tree/main/code/flask-master). 
 
 
 
@@ -371,14 +377,7 @@ if __name__ == "__main__":
 
 We want to create a Docker image with this web app. As mentioned above, all user images are based on a _base image_. Since our application is written in Python, we will build our own Python image based on [Alpine](https://store.docker.com/images/alpine). 
 
-To do this we need a **Dockerfile**.
-A [Dockerfile](https://docs.docker.com/engine/reference/builder/) is a text file that contains a list of commands that the Docker daemon calls while creating an image. The Dockerfile contains all the information that Docker needs to know to run the app:
-* a base Docker image to run from, 
-* location of your project code, 
-* any dependencies it has, 
-* and what commands to run at start-up. 
-
-It is a simple way to automate the image creation process. The best part is that the commands you write in a Dockerfile are *almost* identical to their equivalent Linux commands. This means you don't really have to learn new syntax to create your own Dockerfiles. So..
+So..
 
 ---
 
@@ -472,7 +471,7 @@ CMD ["python", "/usr/src/app/app.py"]
 
 Now that you have your `Dockerfile`, you can build your image. The `docker build` command does the heavy-lifting of creating a docker image from a `Dockerfile`.
 
-When you run the `docker build` command given below, make sure to replace `<YOUR_USERNAME>` with your username. This username should be the same one you created when registering on [Docker Hub](https://cloud.docker.com). 
+**When you run the `docker build` command given below, make sure to replace `<YOUR_USERNAME>` with your username. This username should be the same one you created when registering on [Docker Hub](https://cloud.docker.com).**
 
 ---
 
@@ -550,7 +549,7 @@ Successfully built 2f7357a0805d
 
 ---
 
-If everything went well, your image should be ready! Run `$ docker images` and see if your image (`<YOUR_USERNAME>/myfirstapp`) shows.
+If everything went well, your image should be ready! Run `$ docker image ls` and see if your image (`<YOUR_USERNAME>/myfirstapp`) shows.
 
 ---
 
@@ -566,7 +565,7 @@ $ docker run -p 8888:5000 --name myfirstapp YOUR_USERNAME/myfirstapp
 ---
 
 
-Head over to `http://localhost:8888` and your app should be live. 
+Head over to [http://localhost:8888](http://localhost:8888) and your app should be live. 
 
 Hit the Refresh button in the web browser to see a few more pizza images.
 
@@ -606,4 +605,6 @@ $ docker rm myfirstapp
 # Final notes
 The tools and commands we explored in this lab are just the beginning. Docker Enterprise Edition includes private Trusted Registries with Security Scanning and Image Signing capabilities so you can further inspect and authenticate your images. In addition, there are policy controls to specify which users have access to various images, who can push and pull images, and much more.
 
-Another important note about layers: each layer is immutable. As an image is created and successive layers are added, the new layers keep track of the changes from the layer below. When you start the container running there is an additional layer used to keep track of any changes that occur as the application runs (like the “hello.txt” file we created in the earlier exercises). This design principle is important for both security and data management. If someone mistakenly or maliciously changes something in a running container, you can very easily revert back to its original state because the base layers cannot be changed. Or you can simply start a new container instance which will start fresh from your pristine image. And applications that create and store data (databases, for example) can store their data in a special kind of Docker object called a volume, so that data can persist and be shared with other containers. 
+Another important note about layers: each layer is immutable. As an image is created and successive layers are added, the new layers keep track of the changes from the layer below. When you start the container running there is an additional layer used to keep track of any changes that occur as the application runs (like the “hello.txt” file we created in the earlier exercises). This design principle is important for both security and data management. If someone mistakenly or maliciously changes something in a running container, you can very easily revert back to its original state because the base layers cannot be changed. Or you can simply start a new container instance which will start fresh from your pristine image. 
+
+Applications that create and store data (databases, for example) can store their data in a special kind of Docker object called a volume, so that data can persist and be shared with other containers. 
