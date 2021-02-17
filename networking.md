@@ -12,7 +12,7 @@
 
 One of the reasons Docker containers and services are so powerful is that you can connect them together, or connect them to non-Docker workloads. Docker containers and services do not even need to be aware that they are deployed on Docker, or whether their peers are also Docker workloads or not. Whether your Docker hosts run Linux, Windows, or a mix of the two, you can use Docker to manage them in a platform-agnostic way.
 
-This lab session introduces some basic Docker networking concepts and prepares you to design and deploy your applications to take full advantage of these capabilities.
+This section introduces some basic Docker networking concepts and prepares you to design and deploy your applications to take full advantage of these capabilities.
 
 ### Network drivers
 Docker’s networking subsystem is pluggable, using drivers. Several drivers exist by default, and provide core networking functionality:
@@ -153,7 +153,6 @@ $ docker network create --driver bridge alpine-net
 $ docker network ls
 
 $ docker network inspect alpine-net
-
 ```
 
 #### Create the four containers. 
@@ -232,6 +231,7 @@ $ docker attach alpine3
 / # ping google.com
 ```
 
+OK, so we saw how to connect various containers and how to create more complex networks structures using bridges.
 
 Now we stop and remove all containers and the alpine-net network.
 
@@ -241,7 +241,6 @@ $ docker container rm alpine1 alpine2 alpine3 alpine4
 $ docker network rm alpine-net
 ```
 
-With this part we worked with the basic of using containers and how to connect them using defined networks.
 
 ---
 
