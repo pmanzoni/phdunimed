@@ -18,3 +18,20 @@ The course is organized as a succession of theoretical and experimental (hands-o
   - [MQTT basics](https://github.com/pmanzoni/phdunimed/blob/main/slides/mqtt.pdf)
 * [PART 6: Simulating a Thread network using OpenThread](https://hackmd.io/@phdunimed/HJSYZ2cxO)
   - [OpenThread basics](https://github.com/pmanzoni/phdunimed/blob/main/slides/openthread.pdf)
+
+## Executing Docker
+Option 1:
+You can download and install Docker on multiple platforms. Refer to the following link: 
+https://docs.docker.com/get-docker/
+and choose the best installation path for you.
+
+Option 2: 
+You can use a virtual machine that you can [download here](https://www.dropbox.com/s/frur6hfwanc9fwl/ubudocker.ova?dl=0)
+You have to use  VirtualBox  with the option: "Files / Import virtualized service".
+The VM has user "**docker**" with password "**docker**"
+
+Option 3:
+You can execute it online: 
+https://labs.play-with-docker.com/
+
+
